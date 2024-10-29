@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [url, setUrl] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setMessage('');
+
+        try {
+            const response = await axios.post('http://localhost:5001/fill-form', { url });
+            setMessage(response.data);
+        } catch (error) {
+            setMessage('Ошибка при заполнении формы');
+        }
+    };
+
+    return (
+        <div style={{ padding: '20px' }}>
+            <h2>Form Filler Bot</h2>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="url">Enter URL:</label>
+                <input
+                    type="text"
+                    id="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="https://example.com/form"
+                    style={{ width: '100%', marginBottom: '10px' }}
+                    required
+                />
+                <button type="submit">Заполнить Форму</button>
+            </form>
+            {message && <p>{message}</p>}
+        </div>
+    );
 }
 
 export default App;
