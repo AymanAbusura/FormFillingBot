@@ -21,7 +21,7 @@ function App() {
         <div style={{ padding: '20px' }}>
             <h2>Form Filler Bot</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="url">Enter URL:</label>
+                <label htmlFor="url">Введите URL:</label>
                 <input
                     type="text"
                     id="url"
