@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // /* eslint-disable no-unused-vars */
 // // App.js WITH AND WITHOUT PROXY
 // import React, { useState } from 'react';
