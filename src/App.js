@@ -179,7 +179,8 @@ function App() {
 
                 <div className='progress'>
                     <div className='progress-header'>
-                        <h3>Прогресс:</h3> {progress}
+                        <h3>Прогресс:</h3> 
+                        {/* {progress} */}
                     </div>
                     <ul className='progress-list'>
                         {messages.map((msg, index) => (
