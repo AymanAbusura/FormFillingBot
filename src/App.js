@@ -1,39 +1,94 @@
+// App.js WITH & WITHOUT PROXY
 import React, { useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 function App() {
     const [url, setUrl] = useState('');
-    const [message, setMessage] = useState('');
+    const [proxy, setProxy] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [progress, setProgress] = useState('0/0');
+    const [totalForms, setTotalForms] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setMessage('');
+        setMessages([]);
+        setProgress('0/0');
+        setTotalForms(0);
 
         try {
-            const response = await axios.post('http://localhost:5001/fill-form', { url });
-            setMessage(response.data);
+            const eventSource = new EventSource(`http://localhost:5001/events`, { withCredentials: false });
+
+            eventSource.onmessage = (event) => {
+                const { message } = JSON.parse(event.data);
+                setMessages((prevMessages) => [...prevMessages, message]);
+
+                if (message.startsWith('Starting form submission for')) {
+                    const match = message.match(/for (\d+) forms/);
+                    if (match) {
+                        setTotalForms(Number(match[1]));
+                        setProgress(`0/${match[1]}`);
+                    }
+                }
+
+                const match = message.match(/Form (\d+) of (\d+)/);
+                if (match) {
+                    setProgress(`${match[1]}/${match[2]}`);
+                }
+            };
+
+            await axios.post('http://localhost:5001/fill-form', { url });
+
+            eventSource.onclose = () => {
+                eventSource.close();
+            };
+
         } catch (error) {
-            setMessage('Ошибка при заполнении формы');
+            setMessages((prevMessages) => [...prevMessages, 'Ошибка при заполнении формы']);
         }
     };
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h2>Form Filler Bot</h2>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="url">Введите URL:</label>
-                <input
-                    type="text"
-                    id="url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                    placeholder="https://example.com/form"
-                    style={{ width: '100%', marginBottom: '10px' }}
-                    required
-                />
-                <button type="submit">Заполнить Форму</button>
-            </form>
-            {message && <p>{message}</p>}
+        <div className='app-container'>
+            <div className='form-wrapper'>
+                <h2>Бот для заполнения форм</h2>
+                <form onSubmit={handleSubmit} className='form'>
+                    <label htmlFor="url">Введите URL:</label>
+                    <input
+                        type="text"
+                        id="url"
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                        placeholder="https://example.com/form"
+                        required
+                    />
+
+                    <label htmlFor="proxy">Введите Proxy URL (опционально):</label>
+                    <input
+                        type="text"
+                        id="proxy"
+                        value={proxy}
+                        onChange={(e) => setProxy(e.target.value)}
+                        placeholder="http://username:password@proxyhost:port"
+                        required
+                    />
+
+                    <button type="submit">
+                        Заполнить Форму
+                    </button>
+                </form>
+
+                <div className='progress'>
+                    <div className='progress-header'>
+                        <h3>Прогресс:</h3> {progress}
+                    </div>
+                    <ul className='progress-list'>
+                        {messages.map((msg, index) => (
+                            <li key={index} className='progress-item'>{msg}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 }
