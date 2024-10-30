@@ -3,7 +3,7 @@ const formData = [
         firstName: 'John',
         lastName: 'Doe',
         email: 'john.doe@example.com',
-        phone: '1234567890',
+        phone: '+44 20 7377 7000',
     },
     {
         firstName: 'Jane',
