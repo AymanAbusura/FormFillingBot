@@ -1,4 +1,4 @@
-// App.js WITH & WITHOUT PROXY
+// App.js WITH AND WITHOUT PROXY
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
