@@ -17,17 +17,28 @@
   text-align: center;
 }
 
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.toggle-container label {
+  display: flex;
+  justify-content: center;
+}
+
 .form {
   display: flex; 
   flex-direction: column;
 }
 
-label {
+label, .proxy-input label {
   margin-bottom: 5px; 
   font-weight: bold;
 }
 
-input {
+input, .proxy-input input {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -53,12 +64,30 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ccc;
 }
 
 .progress-list {
   padding-left: 20px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
 }
 
 .progress-item {
   margin-bottom: 5px;
+}
+
+.total-process-time {
+  border-bottom: 2px solid #ccc;
+  padding: 10px 0;
+}
+
+.proxy-toggle {
+  margin-bottom: 10px;
+}
+
+.proxy-input {
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
 }
