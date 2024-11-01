@@ -19,8 +19,8 @@ function App() {
         setTotalForms(0);
 
         try {
-            const eventSource = new EventSource(`http://localhost:5001/events`); //FOR LOCALHOST
-            // const eventSource = new EventSource(process.env.REACT_APP_EVENTS_URL);
+            // const eventSource = new EventSource(`http://localhost:5001/events`); //FOR LOCALHOST
+            const eventSource = new EventSource(process.env.REACT_APP_EVENTS_URL);
 
             eventSource.onmessage = (event) => {
                 const { message } = JSON.parse(event.data);
