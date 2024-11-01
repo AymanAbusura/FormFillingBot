@@ -1,3 +1,4 @@
 build:
   - npm install
   - npm run install-chrome
+  - export PATH=$PATH:/opt/render/project/src/backend/.cache/puppeteer
