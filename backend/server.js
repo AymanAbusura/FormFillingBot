@@ -13,12 +13,12 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
-// app.use(cors()); //FOR LOCALHOST
-app.use(cors({
-    origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-}));
+app.use(cors()); //FOR LOCALHOST
+// app.use(cors({
+//     origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
+//     methods: ['GET', 'POST'],
+//     allowedHeaders: ['Content-Type'],
+// }));
 
 
 app.use(express.json());
@@ -53,7 +53,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     try {
         const browserOptions = {
             headless: false,
-            args: ['--no-sandbox'],
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -135,8 +134,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
         const browserOptions = {
             headless: false,
             proxy: `http://${proxy}`,
-            args: ['--no-sandbox'],
-            
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -211,11 +208,11 @@ app.post('/fill-form-with-proxy', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
 
 //FOR LOCALHOST
-// app.listen(PORT, () => {
-//     console.log(`Server running at http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
