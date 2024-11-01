@@ -52,7 +52,8 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            headless: false,
+            executablePath: '/opt/render/project/src/backend/.cache/puppeteer/chrome',
+            headless: true,
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -132,7 +133,8 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            headless: false,
+            executablePath: '/opt/render/project/src/backend/.cache/puppeteer/chrome',
+            headless: true,
             proxy: `http://${proxy}`,
         };
 
