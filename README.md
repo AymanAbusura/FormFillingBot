@@ -120,7 +120,4 @@ If you encounter CORS issues, make sure:
 * Proxy Configuration Errors: Verify that the proxy information is correctly entered.
 
 ### License
-This project is licensed under the MIT License.
-# FormFillingBot
-# FormFillingBot
-# FormFillingBot
+This project is licensed under the MIT License.# FormFillingBot
