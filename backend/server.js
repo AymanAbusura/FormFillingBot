@@ -53,7 +53,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: null,
+            channel: 'chrome-stable',
             headless: true,
         };
 
@@ -134,7 +134,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: null,
+            channel: 'chrome-stable',
             headless: true,
             proxy: `http://${proxy}`,
         };
