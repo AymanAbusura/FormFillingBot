@@ -2,7 +2,8 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
@@ -52,7 +53,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: '/app/.cache/puppeteer/chrome',
+            executablePath: null,
             headless: true,
         };
 
@@ -133,7 +134,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: '/app/.cache/puppeteer/chrome',
+            executablePath: null,
             headless: true,
             proxy: `http://${proxy}`,
         };
