@@ -52,7 +52,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            // headless: false,
+            headless: true,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -139,7 +139,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            // headless: false,
+            headless: true,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",

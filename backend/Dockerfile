@@ -3,11 +3,9 @@ FROM ghcr.io/puppeteer/puppeteer:23.6.1
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
-WORKDIR /Users/ayman/Desktop/Courses&Projects/Projects/formfillingbot/backend
+WORKDIR /backend
 
-COPY package.json ./
+COPY package*.json ./
 RUN npm ci
-RUN npm audit fix
 COPY . .
-
-CMD [ "node", "server.js" ]
+CMD [ "node", "index.js" ]
