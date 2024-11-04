@@ -13,6 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
+
 // app.use(cors()); //FOR LOCALHOST
 app.use(cors({
     origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
@@ -20,7 +21,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     maxAge: 3600,
 }));
-
 app.options('*', cors());
 
 app.use(express.json());
@@ -29,7 +29,6 @@ let clients = [];
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to the Form Filling Server!</h1>');
-    console.log(puppeteer.executablePath())
 });
 
 app.get('/events', (req, res) => {
@@ -55,8 +54,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
-            headless: true,
+            headless: false,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -142,8 +140,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
-            headless: true,
+            headless: false,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
