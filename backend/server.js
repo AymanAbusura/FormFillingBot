@@ -2,7 +2,7 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
@@ -62,7 +62,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            channel: 'chrome',
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -149,7 +148,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            channel: 'chrome',
             proxy: `http://${proxy}`,
         };
 
