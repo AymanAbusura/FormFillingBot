@@ -29,7 +29,7 @@ let clients = [];
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to the Form Filling Server!</h1>');
-    // console.log(puppeteer.executablePath())
+    console.log(puppeteer.executablePath())
 });
 
 app.get('/events', (req, res) => {
