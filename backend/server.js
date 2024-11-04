@@ -13,12 +13,12 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
-// app.use(cors()); //FOR LOCALHOST
-app.use(cors({
-    origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-}));
+app.use(cors()); //FOR LOCALHOST
+// app.use(cors({
+//     origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
+//     methods: ['GET', 'POST'],
+//     allowedHeaders: ['Content-Type'],
+// }));
 
 
 app.use(express.json());
@@ -27,6 +27,7 @@ let clients = [];
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to the Form Filling Server!</h1>');
+    console.log(puppeteer.executablePath())
 });
 
 app.get('/events', (req, res) => {
@@ -59,7 +60,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            // executablePath: "/usr/bin/google-chrome",
+            executablePath: "/Users/ayman/Desktop/Courses&Projects/Projects/formfillingbot/backend/.cache/puppeteer/chrome/mac_arm-130.0.6723.69/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
             // executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
         };
 
@@ -224,11 +225,11 @@ app.post('/fill-form-with-proxy', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
 
 //FOR LOCALHOST
-// app.listen(PORT, () => {
-//     console.log(`Server running at http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
