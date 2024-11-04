@@ -2,8 +2,7 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-// const puppeteer = require('puppeteer');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
@@ -61,10 +60,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            executablePath: puppeteer.executablePath(), // Add this line
-            // executablePath: '/usr/bin/google-chrome',
-            // executablePath: "/Users/ayman/Desktop/Courses&Projects/Projects/formfillingbot/backend/.cache/puppeteer/chrome/mac_arm-130.0.6723.69/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
-            // executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -151,10 +146,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            executablePath: puppeteer.executablePath(),
-            // executablePath: '/usr/bin/google-chrome',
-            // executablePath: "/usr/bin/google-chrome",
-            // executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
             proxy: `http://${proxy}`,
         };
 
