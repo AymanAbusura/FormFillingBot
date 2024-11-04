@@ -55,7 +55,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            headless: 'shell',
+            headless: 'new',
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
