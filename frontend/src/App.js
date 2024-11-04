@@ -10,7 +10,7 @@ function App() {
     const [messages, setMessages] = useState([]);
     const [progress, setProgress] = useState('0/0');
     const [totalForms, setTotalForms] = useState(0);
-    const [useProxy, setUseProxy] = useState(false); // State to handle proxy option
+    const [useProxy, setUseProxy] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
