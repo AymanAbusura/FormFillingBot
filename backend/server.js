@@ -16,10 +16,12 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 // app.use(cors()); //FOR LOCALHOST
 app.use(cors({
     origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 3600,
 }));
 
+app.options('*', cors());
 
 app.use(express.json());
 
