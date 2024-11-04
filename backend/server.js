@@ -2,7 +2,7 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
