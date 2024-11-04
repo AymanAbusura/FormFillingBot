@@ -2,7 +2,8 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
@@ -55,7 +56,8 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            headless: 'new',
+            channel: 'chrome',
+            headless: false,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -142,7 +144,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            headless: 'shell',
+            headless: false,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
