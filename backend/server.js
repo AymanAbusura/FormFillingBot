@@ -2,13 +2,18 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
 const path = require('path');
 
 const app = express();
+
+process.env.PUPPETEER_EXECUTABLE_PATH = '/usr/bin/chromium';
+
+
 // const PORT = 5001;
 const PORT = process.env.PORT || 5001;
 
@@ -54,6 +59,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
+            executablePath: '/usr/bin/chromium',
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
