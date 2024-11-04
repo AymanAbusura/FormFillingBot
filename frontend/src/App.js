@@ -19,8 +19,8 @@ function App() {
         setTotalForms(0);
 
         try {
-            const eventSource = new EventSource(`http://localhost:5001/events`); //FOR LOCALHOST
-            // const eventSource = new EventSource(process.env.REACT_APP_EVENTS_URL);
+            // const eventSource = new EventSource(`http://localhost:5001/events`); //FOR LOCALHOST
+            const eventSource = new EventSource(process.env.REACT_APP_EVENTS_URL);
 
             eventSource.onmessage = (event) => {
                 const { message } = JSON.parse(event.data);
@@ -44,11 +44,11 @@ function App() {
             // await axios.post(process.env.REACT_APP_FILL_FORM_URL, { url, proxy: useProxy ? proxy : '' });
 
             if (useProxy) {
-                await axios.post('http://localhost:5001/fill-form-with-proxy', { url, proxy }); // With Proxy FOR LOCALHOST
-                // await axios.post(process.env.REACT_APP_FILL_FORM_URL_PROXY, { url, proxy }); // With Proxy FOR LOCALHOST
+                // await axios.post('http://localhost:5001/fill-form-with-proxy', { url, proxy }); // With Proxy FOR LOCALHOST
+                await axios.post(process.env.REACT_APP_FILL_FORM_URL_PROXY, { url, proxy }); // With Proxy FOR LOCALHOST
             } else {
-                await axios.post('http://localhost:5001/fill-form-without-proxy', { url }); // Without Proxy FOR LOCALHOST
-                // await axios.post(process.env.REACT_APP_FILL_FORM_URL, { url });
+                // await axios.post('http://localhost:5001/fill-form-without-proxy', { url }); // Without Proxy FOR LOCALHOST
+                await axios.post(process.env.REACT_APP_FILL_FORM_URL, { url });
             }
 
             eventSource.onclose = () => {
