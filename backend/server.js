@@ -62,6 +62,8 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
+            executablePath: '/path/to/chrome',
+            cachePath: '/opt/render/project/src/backend/.cache/puppeteer',
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -148,6 +150,8 @@ app.post('/fill-form-with-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
+            executablePath: '/path/to/chrome',
+            cachePath: '/opt/render/project/src/backend/.cache/puppeteer',
             proxy: `http://${proxy}`,
         };
 
