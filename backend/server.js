@@ -62,9 +62,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            executablePath: '/Users/ayman/Desktop/Courses&Projects/Projects/formfillingbot/backend/.cache/puppeteer/chrome/mac_arm-130.0.6723.69/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing',            
-            channel: 'latest',
-            cachePath: '/opt/render/project/src/backend/.cache/puppeteer',
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -151,9 +148,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
                 "--single-process",
                 "--no-zygote",
             ],
-            executablePath: '/Users/ayman/Desktop/Courses&Projects/Projects/formfillingbot/backend/.cache/puppeteer/chrome/mac_arm-130.0.6723.69/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing',
-            channel: 'latest',
-            cachePath: '/opt/render/project/src/backend/.cache/puppeteer',
             proxy: `http://${proxy}`,
         };
 
