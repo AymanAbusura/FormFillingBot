@@ -56,7 +56,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            channel: 'chrome',
+            channel: 'stable',
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
