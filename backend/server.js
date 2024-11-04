@@ -56,6 +56,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
+            executablePath: '/usr/bin/google-chrome',
             channel: 'stable',
             headless: false,
             args: [
