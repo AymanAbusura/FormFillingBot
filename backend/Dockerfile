@@ -1,23 +1,14 @@
-# Use the Puppeteer image as the base
 FROM ghcr.io/puppeteer/puppeteer:23.6.1
 
-# Install Node.js
-RUN apt-get update && apt-get install -y nodejs
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-# Set the working directory to /app
 WORKDIR /app
 
-# Copy the package*.json files to the working directory
 COPY package*.json ./
 
-# Install the dependencies
-RUN npm install
+RUN npm ci
 
-# Install Chrome browser for Puppeteer
-RUN npx puppeteer browsers install chrome
-
-# Copy the application code to the working directory
 COPY . .
 
-# Run the command to start the development server
-CMD ["node", "server.js"]
+CMD [ "node", "server.js" ]
