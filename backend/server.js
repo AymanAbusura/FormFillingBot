@@ -9,6 +9,8 @@ const formData = require('./data');
 const favicon = require('serve-favicon');
 const path = require('path');
 
+const {executablePath} = require('puppeteer')
+
 const app = express();
 
 // const PORT = 5001;
@@ -57,7 +59,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+            executablePath: executablePath(),
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
@@ -146,7 +148,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+            executablePath: executablePath(),
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
