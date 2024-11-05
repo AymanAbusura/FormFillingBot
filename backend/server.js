@@ -9,7 +9,7 @@ const formData = require('./data');
 const favicon = require('serve-favicon');
 const path = require('path');
 
-const {executablePath} = require('puppeteer')
+// const {executablePath} = require('puppeteer')
 
 const app = express();
 
@@ -59,7 +59,8 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: executablePath(),
+            executablePath: null,
+            downloadChrome: true,
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
@@ -148,7 +149,8 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: executablePath(),
+            executablePath: null,
+            downloadChrome: true,
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
