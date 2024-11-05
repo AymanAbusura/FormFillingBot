@@ -2,8 +2,8 @@
 // server.js TESTING PROGRESS WITH AND WITHOUT PROXY
 require('dotenv').config();
 const express = require('express');
-const puppeteer = require('puppeteer');
-// const puppeteer = require('puppeteer-core');
+// const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
@@ -40,7 +40,6 @@ let clients = [];
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to the Form Filling Server!</h1>');
-    console.log('executablePath is', executablePath)
 });
 
 app.get('/events', (req, res) => {
@@ -66,8 +65,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: null,
-            downloadChrome: true,
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
@@ -146,7 +143,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     } catch (error) {
         console.error(error);
         sendEventMessage('Ошибка при отправке формы.' + error.message);
-        // sendEventMessage('executablePath is', executablePath)
         res.status(500).send('Error during form submission.' + error.message);
     }
 });
@@ -156,8 +152,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: null,
-            downloadChrome: true,
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
