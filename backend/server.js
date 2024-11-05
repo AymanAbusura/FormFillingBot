@@ -25,6 +25,13 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     maxAge: 3600,
 }));
+// Add CORS headers to all responses
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 app.options('*', cors());
 
 app.use(express.json());
