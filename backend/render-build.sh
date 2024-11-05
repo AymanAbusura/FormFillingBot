@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # exit on errorset -o errexit
 
+npx puppeteer browsers install chrome
 npm install
 # npm run build # uncomment if required
 
