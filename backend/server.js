@@ -57,6 +57,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
@@ -145,6 +146,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
             headless: false,
             args: [
                 "--disable-setuid-sandbox",
