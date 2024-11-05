@@ -56,7 +56,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            executablePath: process.env.CHROME_EXECUTABLE_PATH,
+            executablePath: puppeteer.executablePath(),
             channel: 'stable',
             headless: false,
             args: [
