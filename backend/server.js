@@ -139,7 +139,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     } catch (error) {
         console.error(error);
         sendEventMessage('Ошибка при отправке формы.' + error.message);
-        sendEventMessage('executablePath is', executablePath)
+        // sendEventMessage('executablePath is', executablePath)
         res.status(500).send('Error during form submission.' + error.message);
     }
 });
