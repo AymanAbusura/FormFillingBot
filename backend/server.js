@@ -26,11 +26,11 @@ app.use(cors({
     maxAge: 3600,
 }));
 // Add CORS headers to all responses
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
 
 app.options('*', cors());
 
@@ -65,7 +65,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            // headless: false,
+            headless: false,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -73,10 +73,10 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--no-zygote",
                 '--enable-gpu'
             ],
-            executablePath:
-                process.env.NODE_ENV === "production"
-                    ? process.env.PUPPETEER_EXECUTABLE_PATH
-                    : puppeteer.executablePath(),
+            // executablePath:
+            //     process.env.NODE_ENV === "production"
+            //         ? process.env.PUPPETEER_EXECUTABLE_PATH
+            //         : puppeteer.executablePath(),
         };
 
         const browser = await puppeteer.launch(browserOptions);
@@ -156,7 +156,7 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 
     try {
         const browserOptions = {
-            // headless: false,
+            headless: false,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -164,10 +164,10 @@ app.post('/fill-form-with-proxy', async (req, res) => {
                 "--no-zygote",
                 '--enable-gpu'
             ],
-            executablePath:
-                process.env.NODE_ENV === "production"
-                    ? process.env.PUPPETEER_EXECUTABLE_PATH
-                    : puppeteer.executablePath(),
+            // executablePath:
+            //     process.env.NODE_ENV === "production"
+            //         ? process.env.PUPPETEER_EXECUTABLE_PATH
+            //         : puppeteer.executablePath(),
             proxy: `http://${proxy}`,
         };
 
