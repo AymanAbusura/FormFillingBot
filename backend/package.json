@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "postinstall": "puppeteer install",
-    "serv": "nodemon server.js"
+    "serv": "nodemon server.js",
+    "build": "echo 'No build step needed"
   },
   "keywords": [],
   "author": "",
