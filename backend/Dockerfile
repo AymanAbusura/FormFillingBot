@@ -1,7 +1,5 @@
-# Use the official Node.js image
-FROM node:16
+FROM ghcr.io/puppeteer/puppeteer:23.7.0
 
-# Install Chromium dependencies
 RUN apt-get update && apt-get install -y \
   wget \
   ca-certificates \
@@ -22,21 +20,17 @@ RUN apt-get update && apt-get install -y \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Puppeteer
 RUN npm install puppeteer
 
-# Set the working directory
+ENV PUPPETEER_SKIP_DOWNLOAD=false \
+    PUPPETEER_CACHE_DIR=/opt/render/project/src/.cache/puppeteer \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+
 WORKDIR /app
 
-# Install application dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application
 COPY . .
 
-# Expose the app port (change 5001 if necessary)
-EXPOSE 5001
-
-# Run the app
-CMD ["npm", "start"]
+CMD [ "node", "index.js" ]
