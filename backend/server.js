@@ -280,6 +280,8 @@ app.get('/events', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
+    res.setHeader('Access-Control-Allow-Origin', 'https://formfillingbot.vercel.app'); // Add this line
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // And this line
     res.flushHeaders();
 
     clients.push(res);
@@ -288,6 +290,7 @@ app.get('/events', (req, res) => {
         clients = clients.filter(client => client !== res);
     });
 });
+
 
 const sendEventMessage = (message) => {
     clients.forEach(client => client.write(`data: ${JSON.stringify({ message })}\n\n`));
