@@ -270,7 +270,7 @@ app.use(express.json());
 
 let clients = [];
 
-const chromiumPath = '/usr/bin/chromium-browser';
+const chromiumPath = '/usr/bin/google-chrome';
 
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to the Form Filling Server!</h1>');
