@@ -18,14 +18,14 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 // app.use(cors()); //FOR LOCALHOST
 app.use(cors({
-    origin: ['https://formfillingbot.vercel.app', 'http://localhost:3000'], // Allow Vercel and local development
+    origin: ['https://clientformfilling.onrender.com/', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     maxAge: 3600,
 }));
 // // Add CORS headers to all responses
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://formfillingbot.vercel.app');
+    res.header('Access-Control-Allow-Origin', 'https://clientformfilling.onrender.com/');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
