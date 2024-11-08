@@ -256,6 +256,14 @@ app.use(cors({
 
 app.use(express.json());
 
+const getChromeExecutablePath = async () => {
+    const executablePath = puppeteer.executablePath();
+    if (!executablePath) {
+        throw new Error('Chrome executable path not found');
+    }
+    return executablePath;
+};
+
 // Route without Proxy
 app.post('/fill-form-without-proxy', async (req, res) => {
     const { url } = req.body;
@@ -268,7 +276,7 @@ app.post('/fill-form-without-proxy', async (req, res) => {
                 "--no-sandbox",
                 "--disable-dev-shm-usage", // Important for Render environments to avoid crashes
             ],
-            executablePath: '/opt/render/.cache/puppeteer/chrome/linux-130.0.6723.116/chrome-linux64/chrome', // Specify path
+            executablePath: await getChromeExecutablePath(), // Use the dynamic executable path
         };
 
         const browser = await puppeteer.launch(browserOptions);
