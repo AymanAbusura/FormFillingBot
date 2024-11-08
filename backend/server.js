@@ -15,20 +15,20 @@ const PORT = process.env.PORT || 5001;
 
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
-app.use(cors()); //FOR LOCALHOST
-// app.use(cors({
-//     origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
-//     methods: ['GET', 'POST', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     maxAge: 3600,
-// }));
-// // Add CORS headers to all responses
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     next();
-// });
-// app.options('*', cors());
+// app.use(cors()); //FOR LOCALHOST
+app.use(cors({
+    origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 3600,
+}));
+// Add CORS headers to all responses
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -225,11 +225,11 @@ app.post('/fill-form-with-proxy', async (req, res) => {
     }
 });
 
-// app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 //FOR LOCALHOST
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server running at http://localhost:${PORT}`);
+// });
