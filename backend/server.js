@@ -17,18 +17,26 @@ const PORT = process.env.PORT || 5001;
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 // app.use(cors()); //FOR LOCALHOST
+const allowedOrigins = [
+    'https://clientformfilling.onrender.com',  // Production client
+    'http://localhost:3000',                   // Local development (if needed)
+];
+
 app.use(cors({
-    origin: ['https://clientformfilling.onrender.com/', 'http://localhost:3000'],
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    maxAge: 3600,
+    credentials: true,
 }));
-// // Add CORS headers to all responses
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://clientformfilling.onrender.com/');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+
+app.options('*', cors());
 
 app.use(express.json());
 
