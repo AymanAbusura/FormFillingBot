@@ -34,18 +34,18 @@ This project is a form-filling bot that automates form submissions on specified 
 
 ### 1. Clone the Repository
 ```markdown
-git clone https://github.com/AymanAbusura/fill_form.git
+git clone https://github.com/AymanAbusura/FormFillingBot.git
 cd fill_form
 ```
 
 ### 2. Install Dependencies
 ```markdown
 # Frontend
-cd frontend
+cd ./frontend
 npm install
 
 # Backend
-cd ../server
+cd ./backend
 npm install
 ```
 
@@ -59,13 +59,13 @@ Set up environment variables for deployment:
 To test the app locally:
 1. Start the backend server:
 ```markdown
-cd server
+cd ./backend
 node server.js
 ```
 
 2. Start the frontend:
 ```markdown
-cd ../frontend
+cd ./frontend
 npm start
 ```
 
