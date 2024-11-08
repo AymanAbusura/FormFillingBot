@@ -269,34 +269,85 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     const { url } = req.body;
 
     try {
-        const browserOptions = {
-            headless: true,
-            args: [
-                "--disable-setuid-sandbox",
-                "--no-sandbox",
-                "--disable-dev-shm-usage", // Important for Render environments to avoid crashes
-            ],
-            executablePath: await getChromeExecutablePath(), // Use the dynamic executable path
-        };
+    const browserOptions = {
+        headless: true,
+        args: [
+            "--disable-setuid-sandbox",
+            "--no-sandbox",
+            "--disable-dev-shm-usage", // Important for Render environments to avoid crashes
+        ],
+        executablePath: await getChromeExecutablePath(), // Use the dynamic executable path
+    };
 
         const browser = await puppeteer.launch(browserOptions);
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'domcontentloaded' });
-        await page.setViewport({ width: 1080, height: 1024 });
+        await page.setViewport({width: 1080, height: 1024});
 
         const bodyContent = await page.evaluate(() => document.body && document.body.innerText.trim());
         if (!bodyContent) {
-            res.status(400).send('Page content is empty.');
+            sendEventMessage('Содержимое страницы пусто.');
             await browser.close();
-            return;
+            return res.status(400).send('Page content is empty.');
+        } else {
+            sendEventMessage('Содержимое страницы успешно загружено.');
         }
 
-        // Further form filling logic...
-        await browser.close();
-        res.send('All forms have been submitted successfully.');
+        const firstLinkSelector = 'a';
+        await page.waitForSelector(firstLinkSelector);
+        const firstLink = await page.$(firstLinkSelector);
+        
+        if (firstLink) {
+            await firstLink.click();
+            await page.waitForNavigation({ waitUntil: 'networkidle0' });
+            sendEventMessage('Перешли на страницу формы. Начало автоматической отправки форм.');
+            
+            const formCount = formData.length;
+            const startTime = Date.now();
+
+            for (const [index, data] of formData.entries()) {
+                try {
+                    await page.type('input[name="first_name"], input[name="firstname"], input[name="firstName"]', data.firstName);
+                    await page.type('input[name="last_name"], input[name="lastname"], input[name="lastName"]', data.lastName);
+                    await page.type('input[name="email"]', data.email);
+                    await page.type('input[name="phone"], input[name="phone_visible"], input[type="tel"]', data.phone);
+
+                    await page.evaluate(() => {
+                        const submitButton = document.querySelector('button[type="submit"], input[type="submit"], .form-group .btn');
+                        if (submitButton) submitButton.click();
+                    });
+
+                    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+                    await page.goto(url, { waitUntil: 'domcontentloaded' });
+                    
+                    await page.waitForSelector(firstLinkSelector);
+                    await page.$eval(firstLinkSelector, link => link.click());
+                    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+
+                } catch (formError) {
+                    console.error(`Error submitting form ${index + 1}:`, formError);
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            }
+
+            const endTime = Date.now();
+            const totalDuration = Math.round((endTime - startTime) / 1000);
+
+            sendEventMessage('Все формы были успешно отправлены.');
+            sendEventMessage(`Общее время процесса: ${totalDuration} секунд.`);
+            await browser.close();
+            res.send('All forms have been submitted successfully.');
+
+        } else {
+            sendEventMessage('Ссылки на целевой странице не найдены.');
+            return res.status(400).send('No links found on the landing page.');
+        }
+
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error during form submission.');
+        sendEventMessage('Ошибка при отправке формы.' + error.message);
+        res.status(500).send('Error during form submission.' + error.message);
     }
 });
 
