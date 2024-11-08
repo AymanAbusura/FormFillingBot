@@ -18,7 +18,7 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 // app.use(cors()); //FOR LOCALHOST
 const allowedOrigins = [
-    'https://clientformfilling.onrender.com',  // Production client
+    'https://formfillingbot.vercel.app',  // Production client
     'http://localhost:3000',                   // Local development (if needed)
 ];
 
