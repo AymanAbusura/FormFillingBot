@@ -71,7 +71,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     try {
         const browserOptions = {
             headless: true,
-            executablePath: '/opt/render/.cache/puppeteer/chrome/linux-130.0.6723.116/chrome-linux64/chrome', // Explicit Chrome path
             // headless: false,
             args: [
                 "--disable-setuid-sandbox",
@@ -157,7 +156,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
     try {
         const browserOptions = {
             headless: true,
-            executablePath: '/opt/render/.cache/puppeteer/chrome/linux-130.0.6723.116/chrome-linux64/chrome', // Explicit Chrome path
             // headless: false,
             args: [
                 "--disable-setuid-sandbox",
