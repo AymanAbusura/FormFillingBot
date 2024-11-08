@@ -16,28 +16,18 @@ const PORT = process.env.PORT || 5001;
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 // app.use(cors()); //FOR LOCALHOST
-const corsOptions = {
-    origin: ['https://formfillingbot.vercel.app'], // Add your Vercel URL
+app.use(cors({
+    origin: ['https://formfillingbot.vercel.app', 'http://localhost:3000'], // Allow Vercel and local development
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // Allow cookies if needed
-};
-
-app.use(cors(corsOptions));
-// app.use(cors({
-//     origin: [process.env.CLIENT_ORIGIN, 'http://localhost:3000'],
-//     methods: ['GET', 'POST', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     // maxAge: 3600,
-//     credentials: true, // Allow cookies if needed
-// }));
+    maxAge: 3600,
+}));
 // // Add CORS headers to all responses
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     next();
-// });
-// app.options('*', cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://formfillingbot.vercel.app');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 app.use(express.json());
 
