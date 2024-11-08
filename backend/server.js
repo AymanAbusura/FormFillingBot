@@ -62,7 +62,6 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     try {
         const browserOptions = {
             headless: true,
-            executablePath: '/usr/bin/google-chrome-stable',
             // headless: false,
             args: [
                 "--disable-setuid-sandbox",
@@ -148,7 +147,6 @@ app.post('/fill-form-with-proxy', async (req, res) => {
     try {
         const browserOptions = {
             headless: true,
-            executablePath: '/usr/bin/google-chrome-stable',
             // headless: false,
             args: [
                 "--disable-setuid-sandbox",
