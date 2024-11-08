@@ -1,0 +1,1 @@
+buildCommand: "./render-build.sh && npm install"
