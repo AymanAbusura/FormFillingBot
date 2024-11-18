@@ -19,8 +19,6 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 // app.use(cors()); //FOR LOCALHOST
 app.use(cors({
     origin: ['https://formfillingbot.vercel.app', 'http://localhost:3000', '*'],
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
     optionSuccessStatus: 200,
  }));
