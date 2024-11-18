@@ -16,7 +16,10 @@ const PORT = process.env.PORT || 5001;
 
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
-app.use(cors()); //FOR LOCALHOST
+// app.use(cors()); //FOR LOCALHOST
+app.use(cors({
+    origin: "*",
+}));
 // app.use(cors({
 //     origin: ['https://formfillingbot.vercel.app', 'http://localhost:3000'], // Allow Vercel and local development
 //     methods: ['GET', 'POST', 'OPTIONS'],
@@ -226,10 +229,10 @@ app.post('/fill-form-with-proxy', async (req, res) => {
 });
 
 //FOR LOCALHOST
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
-
 // app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
+//     console.log(`Server running at http://localhost:${PORT}`);
 // });
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
