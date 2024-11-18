@@ -18,8 +18,10 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 // app.use(cors()); //FOR LOCALHOST
 app.use(cors({
-    origin: "*",
-}));
+    origin:'*',
+    credentials:true,
+    optionSuccessStatus:200,
+ }));
 // app.use(cors({
 //     origin: ['https://formfillingbot.vercel.app', 'http://localhost:3000'], // Allow Vercel and local development
 //     methods: ['GET', 'POST', 'OPTIONS'],
@@ -59,12 +61,12 @@ const sendEventMessage = (message) => {
 };
 
 // Route without Proxy
-app.post('/fill-form-without-proxy', async (req, res) => {
+app.post('/url', async (req, res) => {
     const { url } = req.body;
 
     try {
         const browserOptions = {
-            headless: false,
+            headless: true,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -143,12 +145,12 @@ app.post('/fill-form-without-proxy', async (req, res) => {
     }
 });
 
-app.post('/fill-form-with-proxy', async (req, res) => {
+app.post('/proxy', async (req, res) => {
     const { url, proxy } = req.body;
 
     try {
         const browserOptions = {
-            headless: false,
+            headless: true,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox"

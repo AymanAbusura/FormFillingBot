@@ -41,10 +41,10 @@ function App() {
             };
 
             if (useProxy) {
-                // await axios.post('http://localhost:5001/fill-form-with-proxy', { url, proxy }); // With Proxy FOR LOCALHOST
-                await axios.post(`${process.env.REACT_APP_FILL_FORM_URL_PROXY}`, { url, proxy }); // With Proxy FOR LOCALHOST
+                // await axios.post('http://localhost:5001/proxy', { url, proxy }); // With Proxy FOR LOCALHOST
+                await axios.post(`${process.env.REACT_APP_FILL_FORM_URL_PROXY}`, { url, proxy });
             } else {
-                // await axios.post('http://localhost:5001/fill-form-without-proxy', { url }); // Without Proxy FOR LOCALHOST
+                // await axios.post('http://localhost:5001/url', { url }); // Without Proxy FOR LOCALHOST
                 await axios.post(`${process.env.REACT_APP_FILL_FORM_URL}`, { url });
             }
 
