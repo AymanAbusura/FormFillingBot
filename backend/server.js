@@ -8,7 +8,6 @@ const cors = require('cors');
 const formData = require('./data');
 const favicon = require('serve-favicon');
 const path = require('path');
-const HttpsProxyAgent = require('https-proxy-agent');
 
 const app = express();
 
@@ -143,7 +142,6 @@ app.post('/proxy', async (req, res) => {
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
-                `--proxy-server=${proxy}`
             ],
             proxy: `http://${proxy}`,
         };
