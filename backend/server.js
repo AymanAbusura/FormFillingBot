@@ -141,7 +141,8 @@ app.post('/proxy', async (req, res) => {
             headless: true,
             args: [
                 "--disable-setuid-sandbox",
-                "--no-sandbox"
+                "--no-sandbox",
+                `--proxy-server=http://${proxy}`,
             ],
             proxy: `http://${proxy}`,
         };
