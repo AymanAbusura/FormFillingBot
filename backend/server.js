@@ -143,6 +143,7 @@ app.post('/proxy', async (req, res) => {
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
                 `--proxy-server=http://${proxy}`,
+                "--host-resolver-rules=MAP * 0.0.0.0 , EXCLUDE localhost",
             ],
             proxy: `http://${proxy}`,
         };
