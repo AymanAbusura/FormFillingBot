@@ -2,6 +2,7 @@
 // App.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import HttpsProxyAgent from 'https-proxy-agent';
 import './App.css';
 
 function App() {
@@ -11,7 +12,6 @@ function App() {
     const [progress, setProgress] = useState('0/0');
     const [totalForms, setTotalForms] = useState(0);
     const [useProxy, setUseProxy] = useState(false);
-    const HttpsProxyAgent = require('https-proxy-agent');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,10 +42,8 @@ function App() {
             };
 
             if (useProxy) {
-                const proxyConfig = {
-                    httpsAgent: new HttpsProxyAgent(`http://${proxy}`),
-                };
-                await axios.post(`${process.env.REACT_APP_FILL_FORM_URL_PROXY}`, { url }, proxyConfig);
+                const agent = new HttpsProxyAgent(`http://${proxy}`);
+                await axios.post(`${process.env.REACT_APP_FILL_FORM_URL_PROXY}`, { url }, { httpsAgent: agent });
                 // await axios.post('http://localhost:5001/proxy', { url, proxy }); // With Proxy FOR LOCALHOST
                 // await axios.post(`${process.env.REACT_APP_FILL_FORM_URL_PROXY}`, { url, proxy });
             } else {
